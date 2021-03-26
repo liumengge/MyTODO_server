@@ -16,7 +16,7 @@ router.get("/", async function (req, res, next) {
 
 // 添加一项任务的接口
 router.post("/", async function (req, res, next) {
-  let task = await models.Task.create(req.body);
+  await models.Task.create(req.body);
   let tasks = await models.Task.findAll();
   res.json({ tasks: tasks });
 });
@@ -24,7 +24,7 @@ router.post("/", async function (req, res, next) {
 // 删除某项任务的接口
 router.delete("/:id", async function (req, res, next) {
   let task = await models.Task.findByPk(req.params.id);
-  task.destroy(req.body)
+  await task.destroy(req.body)
   let tasks = await models.Task.findAll(); 
   res.json({ 
     msg: "删除成功",

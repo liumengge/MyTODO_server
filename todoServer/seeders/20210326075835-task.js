@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -6,20 +6,26 @@ module.exports = {
       "tasks",
       [
         {
-          done: "1",
-          value: "写完todoList项目",
+          value: "完成todo项目开发与测试",
+          done: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          done: "1",
-          value: "学习vue2底层源码",
+          value: "学习vue2源码底层思想",
+          done: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          done: "0",
-          value: "学习TS+vue3",
+          value: "学习vue3编程思路+TS",
+          done: 0,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          value: "去旅行",
+          done: 0,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -29,6 +35,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete("tasks", null, {});
-  },
+    await queryInterface.bulkDelete('tasks', null, {});
+  }
 };
