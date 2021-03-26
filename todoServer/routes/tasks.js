@@ -16,7 +16,14 @@ router.get("/", async function (req, res, next) {
 
 // 添加一项任务的接口
 router.post("/", async function (req, res, next) {
-  await models.Task.create(req.body);
+  if(!req.body.id) {
+    await models.Task.create(req.body);
+  }else {
+    req.body.done == 0
+      ? await models.Task.update({ done: 0 }, { where: { id: req.body.id } })
+      : await models.Task.update({ done: 1 }, { where: { id: req.body.id } });
+  }
+
   let tasks = await models.Task.findAll();
   res.json({ tasks: tasks });
 });
