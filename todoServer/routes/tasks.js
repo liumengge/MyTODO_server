@@ -28,10 +28,13 @@ router.post("/", async function (req, res, next) {
   res.json({ tasks: tasks });
 });
 
-// 删除某项任务的接口
+// 删除任务
 router.delete("/:id", async function (req, res, next) {
-  let task = await models.Task.findByPk(req.params.id);
-  await task.destroy(req.body)
+  if (req.params.id) {
+    let task = await models.Task.findByPk(req.params.id);
+    await task.destroy(req.body);
+  }
+  
   let tasks = await models.Task.findAll(); 
   res.json({ 
     msg: "删除成功",
@@ -41,8 +44,12 @@ router.delete("/:id", async function (req, res, next) {
 
 // 删除所有已完成任务
 router.delete("/", async function (req, res, next) {
-  let task = await models.Task.findByPk(req.params.id);
-  task.destroy(req.body);
+  await models.Task.destroy({
+    where: {
+      done: 1,
+    },
+  });
+
   let tasks = await models.Task.findAll();
   res.json({
     msg: "删除成功",
